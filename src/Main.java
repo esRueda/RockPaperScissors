@@ -19,28 +19,28 @@ public class Main {
 
 	public static void playerVsComputer() {
 		Player player = new Player();
-		
-		Scanner playerName = new Scanner(System.in);
+		Scanner playerName = new Scanner(System.in); // User input for the name.
 		System.out.print("What is your name?: ");
 		player.name = playerName.nextLine();
 		boolean finished = false;
 		
 		while(!finished){
-		int rand = (int) (Math.random() * 3);
-		System.out.println(player.name  + ", enter your choice (rock, paper, scissors): ");
-		Scanner playerMove = new Scanner(System.in);
+		int rand = (int) (Math.random() * 3); // Random number between 0 and 2.
+		System.out.println(player.name  + ", enter your choice ('rock', 'paper', 'scissors' or 'exit' to quit the game): ");
+		Scanner playerMove = new Scanner(System.in); // User input for the move.
 		String playerChoice = playerMove.nextLine();
 		String computerChoice = null;
 		
-		if(playerChoice.equals("exit")) {
-			finished = true;			
+		if(playerChoice.equals("exit")) { // I check if the move is exit.
+			finished = true;	
+			break;
 		}
 		if(!playerChoice.equals("rock") && !playerChoice.equals("paper") && !playerChoice.equals("scissors")) { // The input of the user has to be between 0 and 2.
 			System.out.println("Invalid input.");
 			
 		}
 		else {
-			switch(rand) {
+			switch(rand) { // Assign the computer move depending on the randomly generated number.
 			case 0:
 				computerChoice = "rock";
 				break;			
@@ -58,10 +58,10 @@ public class Main {
 		System.out.println("The computer's choice is " + computerChoice);
 		printASCII(computerChoice);
 
-		if(playerChoice.equals(computerChoice)) {
+		if(playerChoice.equals(computerChoice)) { // If both moves are equal == TIE.
 			System.out.println("You tied!");
 		}
-		else if((playerChoice.equals("rock") && computerChoice.equals("scissors")) || (playerChoice.equals("scissors") && computerChoice.equals("paper")) || (playerChoice.equals("paper") && computerChoice.equals("rock"))){
+		else if((playerChoice.equals("rock") && computerChoice.equals("scissors")) || (playerChoice.equals("scissors") && computerChoice.equals("paper")) || (playerChoice.equals("paper") && computerChoice.equals("rock"))){ // Winning conditions.
 			System.out.println(player.name + " has won !");
 			player.winsRound();
 			System.out.println(player.name + " has a total of " + player.wins + " win(s)");
@@ -71,7 +71,7 @@ public class Main {
 				
 			}
 			
-		}else {
+		}else { //Lost
 			System.out.println(player.name + " has lost !");
 			player.reduceLives();
 			System.out.println(player.name + " has a total of " + player.lives + " lives");			
@@ -120,7 +120,7 @@ public class Main {
 		
 	}
 
-	public static void menu() {
+	public static void menu() { // Simple menu functionality, can be expanded easily.
 
 		Scanner sn = new Scanner(System.in);
 		boolean exit = false;

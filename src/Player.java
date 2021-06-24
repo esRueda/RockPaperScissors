@@ -5,19 +5,12 @@ public class Player {
 	protected String name;
 	protected int lives = 3;
 	protected int wins = 0;
-
-
-	public Player() {//String name, int lives
-		//this.name = name;
-		//this.lives = lives;
-		
-	}
 	
-	protected void reduceLives() {		
+	protected void reduceLives() { // When the user loses a round, he loses one life.
 		this.lives--;
 	}
 	
-	protected void winsRound() {
+	protected void winsRound() {  // I add one win whenever the user wins a round.
 		this.wins++;
 	}
 }
