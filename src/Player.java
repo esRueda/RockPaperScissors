@@ -2,19 +2,42 @@ abstract class Player {
 	
 	
 	protected int wins = 0;
-	protected String playerType;
-	protected String choice;
+	protected String name = "Unknown";
 	
 	public Player() {
 		
 	}
 	abstract String getChoice();
 	
-	abstract String getName();
+	abstract void printWinMessage(); //Function with the win message.
+
+	static public Player createPlayer(String input) {
+		
+		if(input.equals("human")) {	
+			HumanPlayer p = new HumanPlayer();
+			return p;
+			
+		}
+		else if(input.equals("computer")){
+			return new ComputerPlayer();
+		}
+		
+		
+		return null;
+		
+	}
 	
+	public String getName() {
+		return name;
+	}
 	
+	abstract void createName(int playerNumber);
 	
-	protected void winsRound() {  // I add one win whenever the user wins a round.
+	public void winsRound() {  // I add one win whenever the user wins a round.
 		this.wins++;
+	}
+	
+	public int getWins() {
+		return wins;
 	}
 }

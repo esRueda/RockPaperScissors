@@ -13,84 +13,60 @@ public class Main {
 		}
 	}
 
+
+	public static Player playerSelection(int playerNumber) {
+		Player player1 = null;
+		Scanner userInput = new Scanner(System.in);
+		while(player1 == null) {
+
+			System.out.print("Choose player " + playerNumber + " ('human' or 'computer'): ");
+			String player1Type = userInput.nextLine();
+			player1 = Player.createPlayer(player1Type);
+			if(player1 == null) {
+				System.out.println("Invalid user, try again later.");
+			}
+		}
+		player1.createName(playerNumber);
+		return player1;
+	}
+
 	public static void play() {
-		String player1Type, player2Type;
-		String player1Choice, player2Choice;
-		String player1Name = null, player2Name = null;
-		Player player1, player2;
+		
+		Player player1 = playerSelection(1);
+		Player player2 = playerSelection(2);
 		boolean finished = false;
-		Scanner playerType1 = new Scanner(System.in);
-		System.out.print("Choose the first player ('human' or 'computer'): ");
-		player1Type = playerType1.nextLine();
-		if(!player1Type.equals("human") && !player1Type.equals("computer")){ // The input of the user has to be between 0 and 2.
-			System.out.println("Invalid input.");			
-		}
-
-		if(player1Type.equals("human")) {	
-			player1 = new HumanPlayer();
-			player1Name = player1.getName();
-
-		}
-		else {
-			player1 = new ComputerPlayer();
-		}
-
-		Scanner playerType2 = new Scanner(System.in);
-		System.out.print("Choose the second player ('human' or 'computer'): ");
-		player2Type = playerType2.nextLine();
-
-		if(!player2Type.equals("human") && !player2Type.equals("computer")){ // The input of the user has to be between 0 and 2.
-			System.out.println("Invalid input.");
-
-		}
-
-		if(player2Type.equals("human")) {
-			player2 = new HumanPlayer();
-			player2Name = player2.getName();
-
-		}
-		else {
-			player2 = new ComputerPlayer();
-		}
-
 		while(!finished){
 
-			player1Choice = player1.getChoice();
-			player2Choice = player2.getChoice();
-			System.out.println("The player 1 choice is: " + player1Choice);
+			String player1Choice = player1.getChoice();
+			String player2Choice = player2.getChoice();
+			System.out.println(player1.getName() + " choice is: " + player1Choice);
 			printASCII(player1Choice);
-			System.out.println("The player 2 choice is " + player2Choice);
+			System.out.println(player2.getName() + " choice is " + player2Choice);
 			printASCII(player2Choice);
 
 			if(player1Choice.equals(player2Choice)) { // If both moves are equal == TIE.
 				System.out.println("You tied!");
 			}
-			else if((player1Choice.equals("rock") && player2Choice.equals("scissors")) || (player1Choice.equals("scissors") && player2Choice.equals("paper")) || (player1Choice.equals("paper") && player2Choice.equals("rock"))){ // Winning conditions.
-				System.out.println("Player 1 has won !");
+			else if((player1Choice.equals("rock") && player2Choice.equals("scissors")) 
+					|| (player1Choice.equals("scissors") && player2Choice.equals("paper"))
+					|| (player1Choice.equals("paper") && player2Choice.equals("rock"))){ // Winning conditions.
+				System.out.println(player1.getName() + " has won the round!");
 				player1.winsRound();
-				System.out.println("Player 1 has a total of " + player1.wins + " win(s)");
-				System.out.println("Player 2 has a total of " + player2.wins + " win(s)");
-				if(player1.wins == 3) {
-					if(player1Type.equals("human")) {
-						System.out.println(player1Name + " HAS WON!");
-					}else {
-						System.out.println("Computer 1 HAS WON!");
-					}
+				System.out.println(player1.getName() + " has a total of " + player1.getWins() + " win(s)");
+				System.out.println(player2.getName() + " has a total of " + player2.getWins() + " win(s)");	
+				if(player1.getWins() == 3) {
+					player1.printWinMessage();
 					finished = true;
 				}
 			}
 
 			else { //Lost
-				System.out.println("Player 2 has won !");
+				System.out.println(player2.getName() + " has won the round!");
 				player2.winsRound();
-				System.out.println(" Player 1 has a total of " + player1.wins + " win(s)");
-				System.out.println(" Player 2 has a total of " + player2.wins + " win(s)");		
-				if(player2.wins == 3) {
-					if(player2Type.equals("human")) {
-						System.out.println(player2Name + " HAS WON!");
-					}else {
-						System.out.println("Computer 2 HAS WON!");
-					}
+				System.out.println(player1.getName() + " has a total of " + player1.getWins() + " win(s)");
+				System.out.println(player2.getName() + " has a total of " + player2.getWins() + " win(s)");		
+				if(player2.getWins() == 3) {
+					player2.printWinMessage();
 					finished = true;
 				}
 			}
